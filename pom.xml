@@ -19,6 +19,7 @@
 		<checkstyle.version>3.0.0</checkstyle.version>
 		<findbugs.version>3.0.5</findbugs.version>
 		<pmd.version>3.14.0</pmd.version>
+		<spotbugs.version>4.0.4</spotbugs.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -90,7 +91,31 @@
 				</executions>
 			</plugin>
 
-
+			<plugin>
+				<groupId>com.github.spotbugs</groupId>
+				<artifactId>spotbugs-maven-plugin</artifactId>
+				<version>${spotbugs.version}</version>
+				<configuration>
+					<effort>Max</effort>
+					<threshold>Low</threshold>
+					<failOnError>true</failOnError>
+					<includeFilterFile>spotbugs-security-include.xml</includeFilterFile>
+					<plugins>
+						<plugin>
+							<groupId>com.h3xstream.findsecbugs</groupId>
+							<artifactId>findsecbugs-plugin</artifactId>
+							<version>1.10.1</version>
+						</plugin>
+					</plugins>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 
